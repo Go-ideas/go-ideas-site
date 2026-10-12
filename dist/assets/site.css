@@ -97,3 +97,6 @@ section{padding:90px 0}.wrap{width:min(1200px,calc(100% - 80px))}.hero{padding-t
 
 /* Perfil y método: jerarquía compacta */
 .about .method-intro{font-size:17px;line-height:1.65;font-weight:400;color:#45535f;margin:0 0 22px;max-width:550px}.about .pillars{margin-top:0}.about .founder-profile{margin-top:28px;align-items:start}.about .founder-profile figcaption{font-size:13px;line-height:1.5}.about .pillar{padding-top:18px;padding-bottom:18px}.about .about-grid{column-gap:52px;row-gap:32px}@media(max-width:700px){.about .method-intro{margin:0 0 18px}.about .about-grid{row-gap:28px}}
+
+/* Retrato completo: conservar proporción original en todas las pantallas */
+.about .founder-profile img{width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;object-position:center;display:block}.about .founder-profile figure{overflow:visible}
