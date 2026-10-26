@@ -100,3 +100,14 @@ section{padding:90px 0}.wrap{width:min(1200px,calc(100% - 80px))}.hero{padding-t
 
 /* Retrato completo: conservar proporción original en todas las pantallas */
 .about .founder-profile img{width:100%;height:auto;max-height:none;aspect-ratio:auto;object-fit:contain;object-position:center;display:block}.about .founder-profile figure{overflow:visible}
+
+/* Muestras de capacidades e integración propuesta del ecosistema. */
+.project-disclosure,.project-privacy{color:#45535f;max-width:1000px;font-size:15px;line-height:1.75}
+.project-picker,.project-stages{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0}
+.project-picker button,.project-stages button{background:white;border:1px solid #b9c4cb;color:#263f54;padding:13px 17px;min-height:48px;cursor:pointer;text-align:left}
+.project-picker button[aria-pressed=true],.project-stages button[aria-pressed=true]{background:#263f54;color:white;border-color:#263f54}
+.project-panel{background:#f5f7f8;border-top:2px solid #647f96;padding:32px}.project-panel h3{font-size:30px;max-width:800px;line-height:1.3}
+.project-evidence{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:26px 0}.project-evidence strong{color:#263f54}.project-evidence p{color:#45535f;line-height:1.75}.project-evidence small{display:block;font-size:13px;line-height:1.7;color:#45535f}
+.project-limit{border-top:1px solid #cbd4db;padding-top:18px;color:#45535f;font-size:14px}.project-stages button{font-size:14px}.project-stages button span{font-variant-numeric:tabular-nums;margin-right:6px}
+.project-stage-panel{padding:26px 30px;border-left:3px solid #647f96;background:#f5f7f8;min-height:190px}.project-stage-panel h3{font-size:25px}.project-stage-panel p{max-width:850px;color:#45535f;line-height:1.8}.project-ai{max-width:900px;margin:30px 0}.project-ai p{color:#45535f;line-height:1.75}
+@media(max-width:700px){.project-panel{padding:24px}.project-panel h3{font-size:25px}.project-evidence{grid-template-columns:1fr;gap:22px}.project-picker{display:grid;grid-template-columns:1fr}.project-stages{display:grid;grid-template-columns:1fr 1fr}.project-stage-panel{padding:22px;min-height:220px}}
