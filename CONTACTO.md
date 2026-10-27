@@ -1,6 +1,6 @@
 # Activar recepción de consultas
 
-El destinatario solicitado es contact@go-ideas.com. El formulario vive en el prototipo hasta su revisión.
+El destinatario solicitado es contact@go-ideas.com. El formulario aprobado está integrado en la página oficial y conserva una copia en el prototipo. El titular confirmó recepción real de la prueba del prototipo.
 
 ## Configuración
 
@@ -18,3 +18,5 @@ El destinatario solicitado es contact@go-ideas.com. El formulario vive en el pro
 - No hay éxito simulado: se confirma únicamente si Formspree devuelve una respuesta satisfactoria explícita.
 - Mientras se envía, se bloquean edición y envíos duplicados. Si falla, se conservan datos y se ofrecen los enlaces de respaldo.
 - Los tests con respuestas simuladas no equivalen a validar recepción real.
+
+La página oficial carga assets/contact-config.js y assets/contact-form.js. Mantener ambas copias docs/ y dist/ sincronizadas; las copias del prototipo son independientes.
