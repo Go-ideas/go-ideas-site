@@ -116,3 +116,7 @@ section{padding:90px 0}.wrap{width:min(1200px,calc(100% - 80px))}.hero{padding-t
 .intelligence-node[aria-pressed=true] span{background:#173a56;color:#fff;border-color:#173a56;box-shadow:0 0 0 4px #f5f7f9}
 @media(max-width:700px){.intelligence-map{column-gap:29px;padding-left:19px}.intelligence-core{margin-left:-19px;width:calc(100% + 19px)}.intelligence-node{position:relative;left:auto;top:auto;min-height:96px;padding-left:24px}.intelligence-node span{width:36px;height:36px;left:-18px;font-size:17px;margin:0}}
 @media(prefers-reduced-motion:reduce){.intelligence-node{transition:none}}
+
+/* Alcance profesional de cada aplicación, con la composición editorial del sitio. */
+.application-scope{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:26px 0 8px}.application-scope>div{border-top:1px solid #c7d3dd;padding-top:18px}.application-scope h4{font-size:14px;font-weight:500;color:#354a5b;margin:0 0 12px}.application-scope p{font-size:14px;color:#45535f;line-height:1.8;margin:0}.application-panel>p{max-width:1000px}
+@media(max-width:800px){.application-scope{grid-template-columns:1fr;gap:22px}}
