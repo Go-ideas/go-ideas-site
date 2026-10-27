@@ -1,10 +1,12 @@
 (()=>{
  const form=document.querySelector('#project-inquiry');if(!form)return;
- const dialog=document.querySelector('#inquiry-dialog');let opener=null;
- document.querySelectorAll('[data-open-inquiry]').forEach(trigger=>trigger.addEventListener('click',event=>{event.preventDefault();opener=trigger;if(!dialog.open)dialog.showModal();document.body.classList.add('inquiry-modal-open');form.querySelector('#inquiry-name').focus()}));
+ const dialog=document.querySelector('#inquiry-dialog'),confirmation=document.querySelector('#inquiry-confirmation');let opener=null;
+ document.querySelectorAll('[data-open-inquiry]').forEach(trigger=>trigger.addEventListener('click',event=>{event.preventDefault();opener=trigger;if(status.dataset.state==='success'){status.textContent='';delete status.dataset.state}if(!dialog.open)dialog.showModal();document.body.classList.add('inquiry-modal-open');form.querySelector('#inquiry-name').focus()}));
  dialog.querySelector('[data-close-inquiry]').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('click',event=>{const r=dialog.getBoundingClientRect();if(event.target===dialog&&(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom))dialog.close()});
- dialog.addEventListener('close',()=>{document.body.classList.remove('inquiry-modal-open');opener?.focus()});
+ dialog.addEventListener('close',()=>{if(!confirmation.open){document.body.classList.remove('inquiry-modal-open');opener?.focus()}});
+ confirmation.addEventListener('close',()=>{document.body.classList.remove('inquiry-modal-open');opener?.focus()});
+ confirmation.addEventListener('click',event=>{const r=confirmation.getBoundingClientRect();if(event.target===confirmation&&(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom))confirmation.close()});
  const button=form.querySelector('[data-inquiry-submit]'),status=form.querySelector('[data-inquiry-status]'),preference=form.elements.preference,phone=form.elements.phone,phoneField=form.querySelector('[data-inquiry-phone]'),fallback=form.querySelector('[data-inquiry-fallback]'),copyButton=form.querySelector('[data-inquiry-copy]'),copyText=form.querySelector('[data-inquiry-copy-text]');
  function updatePreference(){const whatsapp=preference.value==='whatsapp';phoneField.hidden=!whatsapp;phone.disabled=!whatsapp;phone.required=whatsapp;phone.setCustomValidity('')}
  preference.addEventListener('change',updatePreference);updatePreference();button.disabled=false;
@@ -40,17 +42,18 @@
    sending=true;fallback.hidden=true;form.setAttribute('aria-busy','true');status.textContent='Enviando tu consulta…';status.dataset.state='sending';
    const controls=[...form.querySelectorAll('input,select,textarea,button')].map(control=>({control,disabled:control.disabled}));
    controls.forEach(({control})=>{control.disabled=true});button.textContent='Enviando…';
-   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let delivered=false;
    try{
     const response=await fetch(endpoint,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
     const result=await response.json();
     if(!response.ok||result.ok!==true)throw new Error('Envío no confirmado');
-    status.textContent='Tu consulta se envió correctamente. Te contactaremos por '+(preference.value==='whatsapp'?'WhatsApp':'correo electrónico')+' con los datos que compartiste.';status.dataset.state='success';form.reset();
+    status.textContent='Tu consulta se envió correctamente. Te contactaremos por '+(preference.value==='whatsapp'?'WhatsApp':'correo electrónico')+' con los datos que compartiste.';status.dataset.state='success';form.reset();delivered=true;
    }catch{
     status.textContent='No pudimos confirmar el envío. Conservamos tus datos; puedes reintentar o usar las opciones de correo que aparecen abajo.';status.dataset.state='error';fallback.hidden=false;
    }finally{
     clearTimeout(timer);controls.forEach(({control,disabled})=>{control.disabled=disabled});sending=false;updatePreference();button.textContent='Enviar consulta';form.removeAttribute('aria-busy');
    }
+   if(delivered){dialog.close();confirmation.showModal();document.body.classList.add('inquiry-modal-open')}
    return;
   }
   fallback.hidden=false;status.dataset.state='prepared';
