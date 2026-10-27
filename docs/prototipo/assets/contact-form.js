@@ -23,10 +23,12 @@
   lines.push('','Qué necesita resolver:',message.value.trim(),'','El prospecto solicita que el seguimiento se realice por '+channel+'.');
   const subject='Consulta de proyecto | Go-Ideas',body=lines.join('\n');
   mailLink.href='mailto:contact@go-ideas.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  const query=new URLSearchParams({to:'contact@go-ideas.com',subject,body});
+  form.querySelector('[data-inquiry-outlook-personal]').href='https://outlook.live.com/mail/0/deeplink/compose?'+query.toString();
+  form.querySelector('[data-inquiry-outlook-work]').href='https://outlook.office.com/mail/deeplink/compose?'+query.toString();
   copyText.value='Para: contact@go-ideas.com\nAsunto: '+subject+'\n\n'+body;
   fallback.hidden=false;status.dataset.state='prepared';
-  status.textContent='El mensaje está preparado. Revisa tu aplicación de correo y pulsa Enviar. Tu preferencia de seguimiento va incluida; esta página no puede confirmar el envío.';
-  mailLink.click();
+  status.textContent='Tu mensaje está preparado, pero todavía no se ha enviado. Elige Outlook u otra aplicación, revisa el borrador y pulsa Enviar. Tu preferencia de seguimiento va incluida.';
  });
  copyButton.addEventListener('click',async()=>{
   try{await navigator.clipboard.writeText(copyText.value);status.textContent='Mensaje copiado. Pégalo en un correo dirigido a contact@go-ideas.com y pulsa Enviar.'}
