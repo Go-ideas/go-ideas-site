@@ -1,5 +1,13 @@
 (()=>{
  const form=document.querySelector('#project-inquiry');if(!form)return;
+ const dialog=document.querySelector('#inquiry-dialog');let opener=null;
+ document.querySelectorAll('[data-open-inquiry]').forEach(trigger=>trigger.addEventListener('click',event=>{
+  event.preventDefault();opener=trigger;if(!dialog.open)dialog.showModal();document.body.classList.add('inquiry-modal-open');form.querySelector('#inquiry-name').focus();
+ }));
+ dialog.querySelector('[data-close-inquiry]').addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',event=>{const r=dialog.getBoundingClientRect();if(event.target===dialog&&(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom))dialog.close()});
+ dialog.addEventListener('close',()=>{document.body.classList.remove('inquiry-modal-open');opener?.focus()});
+
  const button=form.querySelector('[data-inquiry-submit]'),status=form.querySelector('[data-inquiry-status]'),mode=document.querySelector('[data-inquiry-mode]');
  const endpoint=window.GO_IDEAS_CONTACT?.endpoint||'';
  let validEndpoint=false;try{const url=new URL(endpoint);validEndpoint=url.protocol==='https:'&&url.hostname==='formspree.io'&&/^\/f\/[A-Za-z0-9]+$/.test(url.pathname)&&!url.search&&!url.hash&&!url.username&&!url.password}catch{}
